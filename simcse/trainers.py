@@ -63,7 +63,8 @@ if is_torch_tpu_available():
     import torch_xla.distributed.parallel_loader as pl
 
 if is_apex_available():
-    from apex import amp
+    assert False
+    # from apex import amp
 
 if version.parse(torch.__version__) >= version.parse("1.6"):
     _is_native_amp_available = True
@@ -72,7 +73,7 @@ if version.parse(torch.__version__) >= version.parse("1.6"):
 if is_datasets_available():
     import datasets
 
-from transformers.trainer import _model_unwrap
+# from transformers.trainer import _model_unwrap
 from transformers.optimization import Adafactor, AdamW, get_scheduler
 import copy
 # Set path to SentEval
@@ -151,7 +152,7 @@ class CLTrainer(Trainer):
 
         # In all cases, including ddp/dp/deepspeed, self.model is always a reference to the model we
         # want to save.
-        assert _model_unwrap(model) is self.model, "internal model should be a reference to self.model"
+        # assert _model_unwrap(model) is self.model, "internal model should be a reference to self.model"
 
         # Determine the new best metric / best model checkpoint
         if metrics is not None and self.args.metric_for_best_model is not None:
@@ -303,7 +304,8 @@ class CLTrainer(Trainer):
             num_update_steps_per_epoch = max_steps
 
         if self.args.deepspeed:
-            model, optimizer, lr_scheduler = init_deepspeed(self, num_training_steps=max_steps)
+            assert False
+            # model, optimizer, lr_scheduler = init_deepspeed(self, num_training_steps=max_steps)
             self.model = model.module
             self.model_wrapped = model  # will get further wrapped in DDP
             self.deepspeed = model  # DeepSpeedEngine object
@@ -322,7 +324,8 @@ class CLTrainer(Trainer):
 
         # Mixed precision training with apex (torch < 1.6)
         if self.use_apex:
-            model, self.optimizer = amp.initialize(model, self.optimizer, opt_level=self.args.fp16_opt_level)
+            assert False
+            # model, self.optimizer = amp.initialize(model, self.optimizer, opt_level=self.args.fp16_opt_level)
 
         # Multi-gpu training (should be after apex fp16 initialization)
         if self.args.n_gpu > 1:
@@ -330,7 +333,8 @@ class CLTrainer(Trainer):
 
         # Distributed training (should be after apex fp16 initialization)
         if self.sharded_dpp:
-            model = ShardedDDP(model, self.optimizer)
+            assert False
+            # model = ShardedDDP(model, self.optimizer)
         elif self.args.local_rank != -1:
             model = torch.nn.parallel.DistributedDataParallel(
                 model,

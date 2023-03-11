@@ -226,10 +226,11 @@ class OurTrainingArguments(TrainingArguments):
             # rather than:
             # python -m torch.distributed.launch --nproc_per_node=2 ./program.py
             if self.deepspeed:
-                from .integrations import is_deepspeed_available
+                assert False
+                # from .integrations import is_deepspeed_available
 
-                if not is_deepspeed_available():
-                    raise ImportError("--deepspeed requires deepspeed: `pip install deepspeed`.")
+                # if not is_deepspeed_available():
+                #    raise ImportError("--deepspeed requires deepspeed: `pip install deepspeed`.")
                 import deepspeed
 
                 deepspeed.init_distributed()
