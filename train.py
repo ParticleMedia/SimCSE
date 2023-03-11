@@ -122,6 +122,12 @@ class ModelArguments:
             "help": "Use MLP only during training"
         }
     )
+    hidden_size_out: int = field(
+        default=64,
+        metadata={
+            "help": "The output embedding size."
+        }
+    )
 
 
 @dataclass
@@ -331,6 +337,7 @@ def main():
     else:
         config = CONFIG_MAPPING[model_args.model_type]()
         logger.warning("You are instantiating a new config instance from scratch.")
+    setattr(config, "hidden_size_out", model_args.hidden_size_out)
 
     tokenizer_kwargs = {
         "cache_dir": model_args.cache_dir,

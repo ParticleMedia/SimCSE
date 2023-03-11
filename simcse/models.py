@@ -23,7 +23,7 @@ class MLPLayer(nn.Module):
 
     def __init__(self, config):
         super().__init__()
-        self.dense = nn.Linear(config.hidden_size, config.hidden_size)
+        self.dense = nn.Linear(config.hidden_size, config.hidden_size_out)
         self.activation = nn.Tanh()
 
     def forward(self, features, **kwargs):
