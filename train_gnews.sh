@@ -14,9 +14,9 @@ export CUDA_VISIBLE_DEVICES="0"
 
 python $src_path/train.py \
     --model_name_or_path bert-base-uncased \
-    --train_file $data_path/simcse_gnews.tsv.train.sf.csv \
-    --output_dir $data_path/simcse-gnews-bert-base-uncased \
-    --num_train_epochs 3 \
+    --train_file $data_path/simcse_gnews_title.tsv.train.sf.csv \
+    --output_dir $data_path/simcse-gnews_title-bert-base-uncased \
+    --num_train_epochs 6 \
     --per_device_train_batch_size 128 \
     --learning_rate 5e-5 \
     --max_seq_length 32 \
