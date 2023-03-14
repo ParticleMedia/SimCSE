@@ -11,7 +11,7 @@ model=$3
 export PYTHONPATH=$PYTHONPATH:$src
 export CUDA_VISIBLE_DEVICES="$gpu"
 
-python $src_path/SimCseRedis.py \
+python ./SimCseRedis.py \
     --model_name_or_path $model \
     --per_device_eval_batch_size 128 \
     --max_seq_length 32 \
