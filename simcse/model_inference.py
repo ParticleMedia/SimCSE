@@ -78,11 +78,16 @@ class SimCseInference(object):
                 emb = emb.numpy()
             return emb
 
-    def similarity(self, sents_0, sents_1):
+    def similarity_debug(self, sents_0, sents_1):
         embs_0 = self.calculate_emb(sents_0, return_numpy=True)  # suppose N queries
         embs_1 = self.calculate_emb(sents_1, return_numpy=True)  # suppose N queries
 
         similarities = cosine_similarity(embs_0, embs_1)
+        return similarities
+
+    def similarity(self, sents_0, sents_1):
+        embs = self.calculate_emb([sents_0] + [sents_1], return_numpy=True)  # suppose N queries
+        similarities = cosine_similarity([embs[0]], [embs[1]])
         return similarities
 
 
@@ -102,5 +107,7 @@ if __name__ == '__main__':
         sent_0 = input()
         print("Input a sentence 1:")
         sent_1 = input()
-        similarity = model.similarity([sent_0], [sent_1])
-        print(f"{similarity}\t{sent_0}\t{sent_1}")
+        similarity_0 = model.similarity(sent_0, sent_1)
+        print(f"{similarity_0}\t{sent_0}\t{sent_1}")
+        similarity_1 = model.similarity_debug(sent_0, sent_1)
+        print(f"{similarity_1}\t{sent_0}\t{sent_1}")
